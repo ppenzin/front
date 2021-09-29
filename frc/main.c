@@ -34,13 +34,12 @@ main (int argc, char ** argv) {
       } else {
         output = argv[++i];
       }
-    }
-    if (input) {
+    } else if (input) {
       fprintf(stderr, "Only one input argument is allowed\n");
       print_usage(stderr, name);
       exit(8);
     } else {
-      input = argv[++i];
+      input = argv[i];
     }
   }
 
