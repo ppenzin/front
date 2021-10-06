@@ -3,9 +3,10 @@
  * Define high-level pipeline handling interactions
  *
  */
+#ifndef PIPELINE_H
+#define PIPELINE_H
 
-/** Callback to report an error */
-typedef void (*error_handler_t)(const char * error_string);
+#include "error.h"
 
 /** Anonymous pipeline type */
 typedef struct pipeline_ pipeline_t;
@@ -31,7 +32,8 @@ void pipeline_free(pipeline_t * pipeline);
  * \param input file pointer for the input
  * \return true if success, false otherwise
  *
- * Errors are reported via provided callback
+ * Errors are reported via provided callback, but it asserts on input being
+ * non-null.
  */
 bool pipeline_process_input(pipeline_t * pipeline, FILE * input);
 
@@ -41,7 +43,9 @@ bool pipeline_process_input(pipeline_t * pipeline, FILE * input);
  * \param output file pointer for the output
  * \return true if success, false otherwise
  *
- * Errors are reported via provided callback
+ * Errors are reported via provided callback, but it asserts on output being
+ * non-null.
  */
 bool pipeline_emit(pipeline_t * pipeline, FILE * output);
 
+#endif // ifndef PIPELINE_H

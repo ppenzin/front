@@ -1,8 +1,14 @@
+/** \file pipeline.c
+ *
+ * Implementation for pipeline.h
+ *
+ */
 #include <assert.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
+#include "parser.h"
 #include "pipeline.h"
 
 struct pipeline_ {
@@ -12,7 +18,10 @@ struct pipeline_ {
 pipeline_t * pipeline_init(error_handler_t error_handler) {
   pipeline_t * p = malloc(sizeof(pipeline_t));
 
-  if (!p) error_handler("Internal error: failed to allocate pipeline object");
+  if (p)
+    p->error_handler = error_handler;
+  else
+    error_handler("Internal error: failed to allocate pipeline object");
 
   return p;
 }
@@ -23,13 +32,20 @@ void pipeline_free(pipeline_t * pipeline) {
 
 bool pipeline_process_input(pipeline_t * pipeline, FILE * input) {
   assert(pipeline);
+  assert(input && "Pipeline input");
+
+  parser_t * parser = parser_init(input, pipeline->error_handler);
 
   // TODO
+
+  parser_free(parser);
+
   return true;
 }
 
 bool pipeline_emit(pipeline_t * pipeline, FILE * output) {
   assert(pipeline);
+  assert(output && "Pipeline output");
 
   // TODO
   return true;
