@@ -34,18 +34,18 @@ main (int argc, char ** argv) {
   for (i = 1; i < argc; ++i) {
     if (!strcmp("-o", argv[i])) {
       if (i == argc - 1) {
-        fprintf(stderr, "'-o' requires a filename argument\n");
+        fputs("'-o' requires a filename argument\n", stderr);
         print_usage(stderr, name);
         exit(8);
       } else if (output) {
-        fprintf(stderr, "Only one output argument ('-o') is allowed\n");
+        fputs("Only one output argument ('-o') is allowed\n", stderr);
         print_usage(stderr, name);
         exit(8);
       } else {
         output = argv[++i];
       }
     } else if (input) {
-      fprintf(stderr, "Only one input argument is allowed\n");
+      fputs("Only one input argument is allowed\n", stderr);
       print_usage(stderr, name);
       exit(8);
     } else {
@@ -55,11 +55,11 @@ main (int argc, char ** argv) {
 
   if (!input) {
     if (output) {
-      fprintf(stderr, "Required input file name\n");
+      fputs("Required input file name\n", stderr);
       print_usage(stderr, name);
       exit(8);
     } else {
-      print_usage(stdin, name);
+      print_usage(stdout, name);
       exit(8);
     }
   }

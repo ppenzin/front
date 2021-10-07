@@ -1,0 +1,28 @@
+/** \file tokens.def
+ *
+ * Macro definitions for lexer tokens
+ */
+
+#ifndef TOK
+# define TOK(X)
+#endif
+
+#ifndef PUNCTUATOR
+#define PUNCTUATOR(X, Y) TOK(X)
+#endif
+
+#ifndef KEYWORD
+#define KEYWORD(X, Y) TOK(kw_ ## X)
+#endif
+
+TOK(identifier) // Identifier name
+
+PUNCTUATOR(lparen, '(')
+PUNCTUATOR(rparen, ')')
+PUNCTUATOR(comma, ',')
+PUNCTUATOR(colon, ':')
+PUNCTUATOR(eq, '=')
+
+KEYWORD(int, 'int')
+KEYWORD(undefined, 'undefined')
+
