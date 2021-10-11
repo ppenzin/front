@@ -2,7 +2,9 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#ifndef _WIN32 // FIXME this might need to live in a separate file
 #include <libgen.h>
+#endif
 
 #include "pipeline.h"
 
@@ -12,6 +14,24 @@
  */
 void print_usage(FILE * out, const char * tool_name) {
   fprintf(out, "Usage: %s <input> [-o output]\n", tool_name);
+}
+
+/** Extract command line tool name
+ *
+ * \param path possibly extended file path
+ * \return minimal string that user needs to type to reference the tool
+ *
+ * FIXME this is needed solely due to platform differences, maybe it needs to
+ * be in its own file
+ */
+char * exe_name(char * path) {
+#ifndef _WIN32
+  return basename(path);
+#else
+  char * name = malloc(strlen(path) + 1); // TODO deallocate
+  _splitpath(path, NULL, NULL, name, NULL);
+  return name;
+#endif
 }
 
 /** Report an error
@@ -28,7 +48,7 @@ main (int argc, char ** argv) {
   unsigned i;
 
   /* tool name */
-  const char * name = basename(argv[0]);
+  const char * name = exe_name(argv[0]);
 
   /* parse command line arguments */
   for (i = 1; i < argc; ++i) {
