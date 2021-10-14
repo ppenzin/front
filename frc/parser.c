@@ -8,11 +8,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "lexer.h"
 #include "parser.h"
 #include "token.h"
 
 struct parser_ {
   error_handler_t error_handler;
+  lexer_t * lexer;
   FILE * input_stream;
 };
 
@@ -24,6 +26,7 @@ parser_t * parser_init(FILE * input, error_handler_t error_handler) {
   if (p) {
     p->error_handler = error_handler;
     p->input_stream = input;
+    p->lexer = lex(input, error_handler);
   } else
     error_handler("Internal error: failed to allocate parser object");
 
@@ -32,6 +35,14 @@ parser_t * parser_init(FILE * input, error_handler_t error_handler) {
 
 void parser_free(parser_t * parser) {
   free(parser);
+}
+
+bool parse_top_level_declarations(parser_t * parser) {
+  while(lex_token(parser->lexer)) {
+    token_kind_t tok = get_token(parser->lexer);
+    if (tok == invalid || tok == eof) break;
+  }
+  return true;
 }
 
 /** Check if the next token matches given type

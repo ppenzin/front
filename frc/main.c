@@ -38,7 +38,7 @@ char * exe_name(char * path) {
  * \param error string to print
  */
 void report_error(const char * error) {
-  fprintf(stderr, "%s\n", error);
+  fprintf(stderr, "Error: %s\n", error);
 }
 
 int

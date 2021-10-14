@@ -27,6 +27,15 @@ parser_t * parser_init(FILE * input, error_handler_t error_handler);
  */
 void parser_free(parser_t * parser);
 
+/** Parse top level declarations
+ *
+ * \param parser the parser to use
+ * \return true on success, false otherwise
+ *
+ * This function uses error handling callback to report errors
+ */
+bool parse_top_level_declarations(parser_t * parser);
+
 // TODO various entities to parse
 
 #endif // ifndef PARSER_H

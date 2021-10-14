@@ -15,6 +15,13 @@
 #define KEYWORD(X, Y) TOK(kw_ ## X)
 #endif
 
+/*** Utility types ***/
+TOK(unknown) // Unitialized token state before recognition
+TOK(invalid) // Indicates failure to recognize token
+TOK(eof) // Indicates the end of input
+
+/*** Source ***/
+
 TOK(identifier) // Identifier name
 
 PUNCTUATOR(lparen, '(')

@@ -36,11 +36,11 @@ bool pipeline_process_input(pipeline_t * pipeline, FILE * input) {
 
   parser_t * parser = parser_init(input, pipeline->error_handler);
 
-  // TODO
+  bool success = parse_top_level_declarations(parser);
 
   parser_free(parser);
 
-  return true;
+  return success;
 }
 
 bool pipeline_emit(pipeline_t * pipeline, FILE * output) {

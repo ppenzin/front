@@ -2,6 +2,8 @@
  *
  * Token definitions
  */
+#ifndef TOKEN_H
+#define TOKEN_H
 
 typedef enum {
 #define TOK(X) X,
@@ -10,3 +12,4 @@ typedef enum {
   NUM_TOKENS
 } token_kind_t;
 
+#endif // ifndef TOKEN_H
