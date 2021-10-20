@@ -38,3 +38,13 @@ bool lex_token(lexer_t * lexer);
  * \return token ID of the current token
  */
 token_kind_t get_token(lexer_t * lexer);
+
+/** Get current token string
+ *
+ * \param lexer object to get the string from
+ * \return pointer to current token string
+ *
+ * Data pointed by the string is not preserved between tokens, it needs to be
+ * copied out if it is needed longer.
+ */
+const char * get_token_string(lexer_t * lexer);

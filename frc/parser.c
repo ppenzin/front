@@ -41,6 +41,9 @@ bool parse_top_level_declarations(parser_t * parser) {
   while(lex_token(parser->lexer)) {
     token_kind_t tok = get_token(parser->lexer);
     if (tok == invalid || tok == eof) break;
+    // A cheat way to dump tokens (FIXME remove)
+    // parser->error_handler(get_token_string(parser->lexer));
+    // parser->error_handler("=======");
   }
   return true;
 }

@@ -7,22 +7,27 @@
 # define TOK(X)
 #endif
 
+#ifndef TERM
+#define TERM(X) TOK(tk_ ## X)
+#endif
+
 #ifndef PUNCTUATOR
-#define PUNCTUATOR(X, Y) TOK(X)
+#define PUNCTUATOR(X, Y) TERM(X)
 #endif
 
 #ifndef KEYWORD
 #define KEYWORD(X, Y) TOK(kw_ ## X)
 #endif
 
-/*** Utility types ***/
+/*** Utility types/states ***/
+
 TOK(unknown) // Unitialized token state before recognition
 TOK(invalid) // Indicates failure to recognize token
 TOK(eof) // Indicates the end of input
 
 /*** Source ***/
 
-TOK(identifier) // Identifier name
+TERM(identifier) // Identifier name
 
 PUNCTUATOR(lparen, '(')
 PUNCTUATOR(rparen, ')')
