@@ -124,7 +124,7 @@ bool lex_token(lexer_t * lexer) {
             // TODO if this is valid for all statements
           } else {
             lexer->state = invalid;
-            char error[25]; // Guesstimate
+            char error[30]; // Make sure full error string fits here
             char ch[2];
             strcpy(error, "Unrecognized character: '");
             ch[0] = c;
@@ -190,6 +190,7 @@ void lexer_error(lexer_t * lexer, const char * str) {
 bool scan_for(const char * target, FILE * input, char ** dst) {
   size_t length = strlen(target);
   *dst = malloc(length + 1); // Enough space for entire pattern
+  if (!dst) return false;
 
   // Copy matching characters
   for (int i = 0; i < length; ++i) {
@@ -200,10 +201,11 @@ bool scan_for(const char * target, FILE * input, char ** dst) {
       // Return character to the stream
       ungetc(c, input);
       // Terminate destination string
-      *(dst)[i] = '\0';
+      (*dst)[i] = '\0';
       return false;
     }
   }
+  (*dst)[length] = '\0';
 
   return true;
 }
