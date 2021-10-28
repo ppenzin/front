@@ -32,8 +32,9 @@ TERM(identifier) // Identifier name
 PUNCTUATOR(lparen, '(')
 PUNCTUATOR(rparen, ')')
 PUNCTUATOR(comma, ',')
-PUNCTUATOR(colon, ':')
+PUNCTUATOR(colon, ':') // FIXME removed from the examples
 PUNCTUATOR(eq, '=')
+PUNCTUATOR(rarrow, '->')
 
 KEYWORD(int, 'int')
 KEYWORD(undefined, 'undefined')

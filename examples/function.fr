@@ -1,2 +1,3 @@
-f(x: int, y: int): int = undefined
+int f(int x, int y) = undefined
+int g(int x, (int -> int) h) = undefined
 

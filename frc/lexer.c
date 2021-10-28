@@ -89,7 +89,7 @@ bool lex_token(lexer_t * lexer) {
           lexer->state = tk_comma;
           dstr_addc(lexer->token, c);
           break;
-        case ':':
+        case ':': // FIXME removed from the examples
           lexer->state = tk_colon;
           dstr_addc(lexer->token, c);
           break;
@@ -97,6 +97,26 @@ bool lex_token(lexer_t * lexer) {
           lexer->state = tk_eq;
           dstr_addc(lexer->token, c);
           break;
+        case '-':
+            c = getc(lexer->input);
+            if (c == '>') {
+                dstr_adds(lexer->token, "->");
+                lexer->state = tk_rarrow;
+            } else {
+                char error[30]; // Make sure full error string fits here
+                char ch[3];
+                strcpy(error, "Unrecognized sequence: '");
+                ch[0] = '-';
+                ch[1] = c;
+                ch[2] = '\0';
+                strcat(error, ch);
+                strcat(error, "'");
+                lexer_error(lexer, error); // TODO better way to compose error
+                ungetc(c, lexer->input);
+                ungetc('-', lexer->input);
+                lexer->token = invalid;
+            }
+            break;
         case 'i':
           dstr_addc(lexer->token, c);
           if (scan_for("nt", lexer->input, &str))
