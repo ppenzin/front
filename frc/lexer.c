@@ -114,7 +114,7 @@ bool lex_token(lexer_t * lexer) {
                 lexer_error(lexer, error); // TODO better way to compose error
                 ungetc(c, lexer->input);
                 ungetc('-', lexer->input);
-                lexer->token = invalid;
+                lexer->state = invalid;
             }
             break;
         case 'i':
