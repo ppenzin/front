@@ -39,3 +39,8 @@ PUNCTUATOR(rarrow, '->')
 KEYWORD(int, 'int')
 KEYWORD(undefined, 'undefined')
 
+#ifdef TESTING
+/* Special test-only keywords */
+KEYWORD(verify_error, 'verify_error')
+#endif // TESTING
+
