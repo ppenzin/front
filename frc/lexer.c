@@ -117,6 +117,10 @@ bool lex_token(lexer_t * lexer) {
                 lexer->state = invalid;
             }
             break;
+        case '"':
+            lexer->state = tk_string_literal;
+            dstr_addc(lexer->token, c); // TODO save quotes or not
+            break;
         case 'i':
           dstr_addc(lexer->token, c);
           if (scan_for("nt", lexer->input, &str))
@@ -155,8 +159,20 @@ bool lex_token(lexer_t * lexer) {
           }
           break;
       }
+    } else if (lexer->state == tk_string_literal) {
+        /*** String literal tokens suspend all other processing ***/
+        if (feof(lexer->input)) { // EOF within string literal (no closing quote)
+            lexer_error(lexer, "Unterminated string");
+            lexer->state = invalid;
+            break;
+        }
+        // TODO newlines?
+        dstr_addc(lexer->token, c); // TODO save quotes or not
+        if (c == '"') {
+            return true;
+        }
     } else {
-      /*** Token end **/
+      /*** Token 'tail' ***/
       if (feof(lexer->input)) {
         break; // Catching an EOF means end of the token
       }

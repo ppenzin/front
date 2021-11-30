@@ -28,6 +28,7 @@ TOK(eof) // Indicates the end of input
 /*** Source ***/
 
 TERM(identifier) // Identifier name
+TERM(string_literal) // 
 
 PUNCTUATOR(lparen, '(')
 PUNCTUATOR(rparen, ')')
